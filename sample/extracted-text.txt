@@ -1,0 +1,17 @@
+Request for quotation
+RFQ-DEMO-001   |   Synthetic electrical-parts sample   |   13 September 2026
+Please quote the following items. Do not substitute products without approval.
+BEGIN RFQ ITEMS
+Item | Product code | Description | Quantity | Unit
+01 | MCB-016 | MCB 16A single pole | 12 | EA
+02 | TRM-004 | Terminal block 4 mm2 | 20 | EA
+03 | UNK-999 | Unlisted accessory | 4 | EA
+04 | CNT-025 | Contactor 25A | 2 | EA
+05 | CBL-025 | Cable 2.5 mm2 | 10 | EA
+06 | DIN-035 | DIN rail 35 mm | 8 | M
+07 | RLY-024 | Relay 24V DC | 3 | EA
+08 | MCB-032 | MCB 32A three pole | 2 | EA
+END RFQ ITEMS
+ITEM COUNT: 8
+All product records and prices in the companion catalogue are invented for demonstration.
+This PDF contains selectable text. Scanned documents and alternate layouts are outside this demo.

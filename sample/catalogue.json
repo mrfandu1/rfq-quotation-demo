@@ -1,0 +1,66 @@
+[
+  {
+    "code": "MCB-016",
+    "description": "MCB 16A single pole",
+    "unit": "EA",
+    "price": "8.50",
+    "currency": "USD",
+    "approved": true
+  },
+  {
+    "code": "TRM-004",
+    "description": "Terminal block 4 mm2",
+    "unit": "EA",
+    "price": "2.35",
+    "currency": "USD",
+    "approved": true
+  },
+  {
+    "code": "CNT-025",
+    "description": "Contactor 25A",
+    "unit": "EA",
+    "price": "30.00",
+    "currency": "USD",
+    "approved": true
+  },
+  {
+    "code": "CNT-025",
+    "description": "Contactor 25A",
+    "unit": "EA",
+    "price": "32.00",
+    "currency": "USD",
+    "approved": true
+  },
+  {
+    "code": "CBL-025",
+    "description": "Cable 2.5 mm2",
+    "unit": "M",
+    "price": "0.90",
+    "currency": "USD",
+    "approved": true
+  },
+  {
+    "code": "DIN-035",
+    "description": "DIN rail 35 mm",
+    "unit": "M",
+    "price": null,
+    "currency": "USD",
+    "approved": true
+  },
+  {
+    "code": "RLY-024",
+    "description": "Relay 24V DC",
+    "unit": "EA",
+    "price": "4.60",
+    "currency": "USD",
+    "approved": false
+  },
+  {
+    "code": "MCB-032",
+    "description": "MCB 32A single pole",
+    "unit": "EA",
+    "price": "12.00",
+    "currency": "USD",
+    "approved": true
+  }
+]

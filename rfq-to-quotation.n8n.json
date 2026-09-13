@@ -1,0 +1,149 @@
+{
+  "name": "RFQ to quotation - synthetic demonstration",
+  "active": false,
+  "nodes": [
+    {
+      "id": "rfq-trigger",
+      "name": "Run demonstration",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "parameters": {}
+    },
+    {
+      "id": "rfq-load",
+      "name": "Load synthetic PDF",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        250,
+        0
+      ],
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "// Embedded synthetic fixture; no credentials or network requests.\nreturn [{json: {reference: 'RFQ-DEMO-001', synthetic: true}, binary: {data: {data: 'JVBERi0xLjQKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1lbnQgKG9wZW5zb3VyY2UpCjEgMCBvYmoKPDwKL0YxIDIgMCBSIC9GMiAzIDAgUiAvRjMgNCAwIFIKPj4KZW5kb2JqCjIgMCBvYmoKPDwKL0Jhc2VGb250IC9IZWx2ZXRpY2EgL0VuY29kaW5nIC9XaW5BbnNpRW5jb2RpbmcgL05hbWUgL0YxIC9TdWJ0eXBlIC9UeXBlMSAvVHlwZSAvRm9udAo+PgplbmRvYmoKMyAwIG9iago8PAovQmFzZUZvbnQgL0hlbHZldGljYS1Cb2xkIC9FbmNvZGluZyAvV2luQW5zaUVuY29kaW5nIC9OYW1lIC9GMiAvU3VidHlwZSAvVHlwZTEgL1R5cGUgL0ZvbnQKPj4KZW5kb2JqCjQgMCBvYmoKPDwKL0Jhc2VGb250IC9Db3VyaWVyIC9FbmNvZGluZyAvV2luQW5zaUVuY29kaW5nIC9OYW1lIC9GMyAvU3VidHlwZSAvVHlwZTEgL1R5cGUgL0ZvbnQKPj4KZW5kb2JqCjUgMCBvYmoKPDwKL0NvbnRlbnRzIDkgMCBSIC9NZWRpYUJveCBbIDAgMCA4NDEuODg5OCA1OTUuMjc1NiBdIC9QYXJlbnQgOCAwIFIgL1Jlc291cmNlcyA8PAovRm9udCAxIDAgUiAvUHJvY1NldCBbIC9QREYgL1RleHQgL0ltYWdlQiAvSW1hZ2VDIC9JbWFnZUkgXQo+PiAvUm90YXRlIDAgL1RyYW5zIDw8Cgo+PiAKICAvVHlwZSAvUGFnZQo+PgplbmRvYmoKNiAwIG9iago8PAovUGFnZU1vZGUgL1VzZU5vbmUgL1BhZ2VzIDggMCBSIC9UeXBlIC9DYXRhbG9nCj4+CmVuZG9iago3IDAgb2JqCjw8Ci9BdXRob3IgKCkgL0NyZWF0aW9uRGF0ZSAoRDoyMDI2MDkxMzE5MDM0NSswNScwMCcpIC9DcmVhdG9yIChhbm9ueW1vdXMpIC9LZXl3b3JkcyAoKSAvTW9kRGF0ZSAoRDoyMDI2MDkxMzE5MDM0NSswNScwMCcpIC9Qcm9kdWNlciAoUmVwb3J0TGFiIFBERiBMaWJyYXJ5IC0gXChvcGVuc291cmNlXCkpIAogIC9TdWJqZWN0ICh1bnNwZWNpZmllZCkgL1RpdGxlIChTeW50aGV0aWMgZWxlY3RyaWNhbC1wYXJ0cyBSRlEgLSBSRlEtREVNTy0wMDEpIC9UcmFwcGVkIC9GYWxzZQo+PgplbmRvYmoKOCAwIG9iago8PAovQ291bnQgMSAvS2lkcyBbIDUgMCBSIF0gL1R5cGUgL1BhZ2VzCj4+CmVuZG9iago5IDAgb2JqCjw8Ci9GaWx0ZXIgWyAvQVNDSUk4NURlY29kZSAvRmxhdGVEZWNvZGUgXSAvTGVuZ3RoIDk1Mgo+PgpzdHJlYW0KR2F0PSlnTVliIiUiN1NHbjhUcmljYWwqRXBRZiQ9P3U9VUVtWFJHTVtiPkpbLS5lSHAoJE5dIVAxKFc9SnRXUihmRyVjYU9HRDx0Skpga140TmVYTj4vNyRsIWVgbVskXFYiaU1LO2w2LVctRFMsVGZDLE8jWUIsQFhebkFdZlFPKS4rI25OQElcNDtISEBjdGtFJ3E8JTNPMGxUcE09Jj5NSSJeRGsxamlSWkM7Q0pEdFtbLyY3PktjUVtacD4rPyNLY0U5XC9gUHBwZU5YNVxKaiskWjJncUBnMCJLPnRzPiNibm1DLi5BS2tYPTY/XGJoQ0BmWjsoU0g3TjNtMGNmXi8mXl9sSS4qITYvOHM5QiVtWWZBNltJMy5tZGtwLSpWNTxCZC1xRkVWQHNNODQ/Y3EvVDZBUjdHXEhRSWBGVCZYaGI0WU80ZShVZlQwcytnKmg6cGU7QltIRSNGUyhrL3AsPSNsbWAnXjFJLEtGYXBwKy0qbmNkM0dFTyIxTTJDSWFWVlwlc1tUUzc7K09vJXJaPTlkdUNGSVc+QmNzZ0ZdcysqbEtHKllaIkVkZmtbJSZMJ08wJ0JNaj5MaU5KajZGMmwjKVJVbG8+VzJmVEFQIlM9TyUhZ05sIVNXYmJoLyZOIUJhM0dRSm4vIjIhR21tRW9wZlQ0J0g3JDdALCVOWG8hZzA2JF1yW3EmXG4sO2E1RS9VbWhXXShSNW1waW1wUSU3Ji5EWk1IVylvL3VOOzxUZGxyVStCbS1nIilBLE8lNW5dPVVJVUE8bEhJViM/b1w8OyokaDoxbiIsIk5YJWhEIV5JI1E0YiFKRD5PMktQT3JbRVxHYlNsPyVnXW8sb0FzXiRaWGc7NSdoU1QiKSFLJz0zI2kqYE4hRmtJLEhUNStAZ1NhL1tGRjFCLi9zTUMpKHNWNCJZX2pRY1gnKS1kRz0iQTNeSDJLam0xdEtoWnVnWS9RZis6TFIkZjJKT200MmZHRlUjUVQodSkxTHBfWTQ6XENhV2BebU4sWEotXyQuIVQ8VTRhbjZJUiRwKUphQTZFMC1aN3E7cWVcRjVhVm4sJEtpSXAjdGVGVVxlMnI/ODFDKFVwOSdgKTpvS1YoUGZCPS5KKCVCJltcZStfXDhDKmRsUTEiK1NAQEthRmA5MyZfcTkyPFBlaWg2Z2EtQjpTYyVrIWZUYTVpJHNxVm1ZN1lFZzlQPmVYLD5kMDgvbDohLk9HUG5xam1OP11sU0kzaSEpRUxuZS5VXzp+PmVuZHN0cmVhbQplbmRvYmoKeHJlZgowIDEwCjAwMDAwMDAwMDAgNjU1MzUgZiAKMDAwMDAwMDA2MSAwMDAwMCBuIAowMDAwMDAwMTEyIDAwMDAwIG4gCjAwMDAwMDAyMTkgMDAwMDAgbiAKMDAwMDAwMDMzMSAwMDAwMCBuIAowMDAwMDAwNDM2IDAwMDAwIG4gCjAwMDAwMDA2MzkgMDAwMDAgbiAKMDAwMDAwMDcwNyAwMDAwMCBuIAowMDAwMDAwOTk2IDAwMDAwIG4gCjAwMDAwMDEwNTUgMDAwMDAgbiAKdHJhaWxlcgo8PAovSUQgCls8ZmM2YTMxYTNjMjU4ZjIzZDRkNTIyNDdhNGJlM2YxMzk+PGZjNmEzMWEzYzI1OGYyM2Q0ZDUyMjQ3YTRiZTNmMTM5Pl0KJSBSZXBvcnRMYWIgZ2VuZXJhdGVkIFBERiBkb2N1bWVudCAtLSBkaWdlc3QgKG9wZW5zb3VyY2UpCgovSW5mbyA3IDAgUgovUm9vdCA2IDAgUgovU2l6ZSAxMAo+PgpzdGFydHhyZWYKMjA5NwolJUVPRgo=', mimeType: 'application/pdf', fileName: 'sample-rfq.pdf', fileExtension: 'pdf'}}}];"
+      }
+    },
+    {
+      "id": "rfq-extract",
+      "name": "Extract PDF text",
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1.1,
+      "position": [
+        500,
+        0
+      ],
+      "parameters": {
+        "operation": "pdf",
+        "binaryPropertyName": "data",
+        "options": {
+          "joinPages": true
+        }
+      }
+    },
+    {
+      "id": "rfq-match",
+      "name": "Parse and match approved prices",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        750,
+        0
+      ],
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "// Deterministic matching for the agreed demonstration layout. No external API.\nfunction parseRfq(text) {\n  if (typeof text !== 'string') throw new Error('PDF extraction returned no text');\n  const section = text.match(/BEGIN RFQ ITEMS([\\s\\S]*?)END RFQ ITEMS/);\n  const count = text.match(/ITEM COUNT:\\s*(\\d+)/);\n  if (!section || !count) throw new Error('Unsupported layout: item boundaries/count missing');\n  const lines = section[1].split(/\\r?\\n/).map(x => x.trim()).filter(Boolean);\n  if (lines.shift() !== 'Item | Product code | Description | Quantity | Unit') {\n    throw new Error('Unsupported table header');\n  }\n  const rows = lines.map(line => {\n    const fields = line.split('|').map(x => x.trim());\n    if (fields.length !== 5 || !/^\\d+$/.test(fields[0]) || !fields[1] || !fields[2] || !fields[4]) {\n      throw new Error(`Malformed item row: ${line}`);\n    }\n    if (!/^(?:0|[1-9]\\d*)(?:\\.\\d{1,3})?$/.test(fields[3]) || Number(fields[3]) <= 0) {\n      throw new Error(`Invalid quantity on row ${fields[0]}`);\n    }\n    return {line: Number(fields[0]), code: fields[1], description: fields[2], quantity: Number(fields[3]), unit: fields[4]};\n  });\n  if (rows.length !== Number(count[1]) || rows.length === 0 || rows.length > 100) {\n    throw new Error('Item count mismatch or unsupported row count');\n  }\n  if (new Set(rows.map(r => r.line)).size !== rows.length) throw new Error('Duplicate RFQ line number');\n  return rows;\n}\n\nfunction matchRows(rows, catalogue) {\n  const normalize = x => String(x).trim().replace(/\\s+/g, ' ').toUpperCase();\n  const index = new Map();\n  for (const product of catalogue) {\n    const key = normalize(product.code);\n    index.set(key, [...(index.get(key) || []), product]);\n  }\n  return rows.map(row => {\n    const candidates = index.get(normalize(row.code)) || [];\n    let issue = '';\n    let product = null;\n    if (candidates.length === 0) issue = 'Unknown product code';\n    else if (candidates.length !== 1) issue = 'Duplicate catalogue code';\n    else {\n      product = candidates[0];\n      if (normalize(product.unit) !== normalize(row.unit)) issue = 'Unit mismatch';\n      else if (normalize(product.description) !== normalize(row.description)) issue = 'Description mismatch';\n      else if (product.approved !== true) issue = 'Price not approved';\n      else if (product.price === null || product.price === undefined || product.price === '') issue = 'Missing approved price';\n      else if (!/^(?:0|[1-9]\\d*)(?:\\.\\d{1,2})?$/.test(String(product.price))) issue = 'Invalid approved price';\n      else if (product.currency !== 'USD') issue = 'Currency mismatch';\n    }\n    const unitCents = issue ? null : Math.round(Number(product.price) * 100);\n    const amountCents = issue ? null : Math.round(row.quantity * unitCents);\n    return {...row, status: issue ? 'REVIEW' : 'MATCHED', issue, unitPrice: unitCents === null ? null : unitCents / 100,\n      amount: amountCents === null ? null : amountCents / 100, catalogueDescription: product?.description ?? '', catalogueUnit: product?.unit ?? ''};\n  });\n}\n\nconst catalogue = [\n  {\n    \"code\": \"MCB-016\",\n    \"description\": \"MCB 16A single pole\",\n    \"unit\": \"EA\",\n    \"price\": \"8.50\",\n    \"currency\": \"USD\",\n    \"approved\": true\n  },\n  {\n    \"code\": \"TRM-004\",\n    \"description\": \"Terminal block 4 mm2\",\n    \"unit\": \"EA\",\n    \"price\": \"2.35\",\n    \"currency\": \"USD\",\n    \"approved\": true\n  },\n  {\n    \"code\": \"CNT-025\",\n    \"description\": \"Contactor 25A\",\n    \"unit\": \"EA\",\n    \"price\": \"30.00\",\n    \"currency\": \"USD\",\n    \"approved\": true\n  },\n  {\n    \"code\": \"CNT-025\",\n    \"description\": \"Contactor 25A\",\n    \"unit\": \"EA\",\n    \"price\": \"32.00\",\n    \"currency\": \"USD\",\n    \"approved\": true\n  },\n  {\n    \"code\": \"CBL-025\",\n    \"description\": \"Cable 2.5 mm2\",\n    \"unit\": \"M\",\n    \"price\": \"0.90\",\n    \"currency\": \"USD\",\n    \"approved\": true\n  },\n  {\n    \"code\": \"DIN-035\",\n    \"description\": \"DIN rail 35 mm\",\n    \"unit\": \"M\",\n    \"price\": null,\n    \"currency\": \"USD\",\n    \"approved\": true\n  },\n  {\n    \"code\": \"RLY-024\",\n    \"description\": \"Relay 24V DC\",\n    \"unit\": \"EA\",\n    \"price\": \"4.60\",\n    \"currency\": \"USD\",\n    \"approved\": false\n  },\n  {\n    \"code\": \"MCB-032\",\n    \"description\": \"MCB 32A single pole\",\n    \"unit\": \"EA\",\n    \"price\": \"12.00\",\n    \"currency\": \"USD\",\n    \"approved\": true\n  }\n];\nconst rows = matchRows(parseRfq($input.first().json.text), catalogue);\nreturn rows.map(r => ({json: {Reference: 'RFQ-DEMO-001', Line: r.line, Code: r.code, Description: r.description, Quantity: r.quantity, Unit: r.unit, 'Catalogue description': r.catalogueDescription, 'Catalogue unit': r.catalogueUnit, 'Unit price USD': r.unitPrice, 'Amount USD': r.amount, Status: r.status, 'Review reason': r.issue, Notice: 'SYNTHETIC DATA - human review required; incomplete draft'}}));"
+      }
+    },
+    {
+      "id": "rfq-xlsx",
+      "name": "Create Excel draft",
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        1000,
+        0
+      ],
+      "parameters": {
+        "operation": "xlsx",
+        "binaryPropertyName": "data",
+        "options": {
+          "fileName": "quotation-native-n8n.xlsx",
+          "headerRow": true,
+          "sheetName": "Quotation draft",
+          "compression": true
+        }
+      }
+    },
+    {
+      "id": "rfq-note",
+      "name": "Read before running",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        180,
+        -310
+      ],
+      "parameters": {
+        "content": "## Synthetic PDF → quotation draft\nRun manually, then download **data** from Create Excel draft.\n\n8 rows: 2 matched (USD 149 subtotal), 6 unpriced REVIEW rows. All products/prices are invented. Only the deliberately agreed text layout is supported. No OCR, external APIs, credentials or automatic substitutions.\n\nThe formatted companion workbook is a separate presentation sample; this workflow creates a plain XLSX table. Adaptation to actual buyer documents requires sample review.",
+        "height": 250,
+        "width": 960,
+        "color": 5
+      }
+    }
+  ],
+  "connections": {
+    "Run demonstration": {
+      "main": [
+        [
+          {
+            "node": "Load synthetic PDF",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Load synthetic PDF": {
+      "main": [
+        [
+          {
+            "node": "Extract PDF text",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract PDF text": {
+      "main": [
+        [
+          {
+            "node": "Parse and match approved prices",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse and match approved prices": {
+      "main": [
+        [
+          {
+            "node": "Create Excel draft",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {},
+  "tags": []
+}

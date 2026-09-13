@@ -1,0 +1,55 @@
+name: Verify native n8n demonstration
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  execute:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      N8N_USER_FOLDER: ${{ runner.temp }}/n8n-state
+      N8N_LISTEN_ADDRESS: 127.0.0.1
+      N8N_RUNNERS_BROKER_LISTEN_ADDRESS: 127.0.0.1
+      N8N_DIAGNOSTICS_ENABLED: 'false'
+      N8N_VERSION_NOTIFICATIONS_ENABLED: 'false'
+      N8N_TEMPLATES_ENABLED: 'false'
+      N8N_RUNNERS_MODE: internal
+      N8N_DEFAULT_BINARY_DATA_MODE: default
+      N8N_LOG_LEVEL: warn
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Install pinned n8n runtime
+        run: npm install --prefix "$RUNNER_TEMP/n8n-runtime" n8n@2.38.7 --no-audit --no-fund
+      - name: Execute fixture through native nodes
+        shell: bash
+        run: |
+          set -euo pipefail
+          N8N_CLI="$RUNNER_TEMP/n8n-runtime/node_modules/n8n/bin/n8n"
+          node test-matching.mjs
+          node "$N8N_CLI" import:workflow --input=rfq-to-quotation.n8n.json
+          node "$N8N_CLI" export:workflow --all --output="$RUNNER_TEMP/imported-workflows.json"
+          WORKFLOW_ID=$(node -e 'const fs=require("fs");const workflows=JSON.parse(fs.readFileSync(process.argv[1],"utf8"));if(workflows.length!==1)process.exit(1);console.log(workflows[0].id)' "$RUNNER_TEMP/imported-workflows.json")
+          node "$N8N_CLI" execute --id="$WORKFLOW_ID" --rawOutput > "$RUNNER_TEMP/native-execution.log" 2>&1
+          python3 verify-native.py "$RUNNER_TEMP/native-execution.log" --n8n-version "$(node "$N8N_CLI" --version)" --node-version "$(node --version)"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: verified-native-demo
+          path: |
+            quotation-native-n8n.xlsx
+            native-execution-evidence.json
+          if-no-files-found: error
+          retention-days: 14
+      - name: Show execution error if verification fails
+        if: failure()
+        shell: bash
+        run: |
+          if [ -f "$RUNNER_TEMP/native-execution.log" ]; then
+            tail -c 16000 "$RUNNER_TEMP/native-execution.log"
+          fi

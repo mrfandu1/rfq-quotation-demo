@@ -9,6 +9,7 @@ const source = fs.readFileSync(path.join(here, 'matching.mjs'), 'utf8').replaceA
 const node = (id, name, type, typeVersion, position, parameters) => ({id, name, type, typeVersion, position, parameters});
 const names = ['Run demonstration', 'Load synthetic PDF', 'Extract PDF text', 'Parse and match approved prices', 'Create Excel draft'];
 const workflow = {
+  id: 'RFQDemoSynthetic',
   name: 'RFQ to quotation - synthetic demonstration',
   active: false,
   nodes: [

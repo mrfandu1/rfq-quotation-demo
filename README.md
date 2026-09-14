@@ -21,7 +21,9 @@ Manual Trigger → Load synthetic PDF → Extract PDF text → Parse and match a
 
 Import the JSON into n8n, run it manually and download the `data` binary output from the final node. The native XLSX output is a plain table. `quotation-demo.xlsx` is a separately formatted presentation example; the workflow does not reproduce that styling.
 
-**Full n8n runtime execution has not yet been verified.** The separate PDF, matching and companion-workbook checks above have passed. Do not describe this workflow as tested end to end until a native execution result is included.
+**The supplied synthetic workflow has been verified end to end in n8n 2.38.7.** The [native execution](https://github.com/mrfandu1/rfq-quotation-demo/actions/runs/34863146567) completed all five nodes, extracted the actual PDF text, and generated an Excel file whose eight rows match the fixture. The six review rows keep their prices and amounts blank. The runtime ran with external networking disabled.
+
+Download the [native Excel output](quotation-native-n8n.xlsx), inspect the [execution evidence and checksums](native-execution-evidence.json), or get the [complete demonstration ZIP](rfq-demonstration.zip). This verifies the supplied layout and synthetic data; buyer documents and production hosting remain untested.
 
 ## Files
 
@@ -35,6 +37,9 @@ Import the JSON into n8n, run it manually and download the `data` binary output 
 - `make_fixture.py`: reproduce the PDF and catalogue (requires Python, reportlab and pypdf).
 - `build-workflow.mjs`: reproduce the embedded workflow from the fixture and matching source.
 - `quotation-demo.xlsx`: formatted Excel presentation sample.
+- `quotation-native-n8n.xlsx`: plain-table Excel output from the verified native run.
+- `native-execution-evidence.json`: runtime versions, fixture/output hashes, checks, and CI link.
+- `verify-native.py`, `native-run.sh`: native verification and container execution scripts.
 - `quotation-preview.png`, `catalogue-preview.png`, `rfq-preview.png`: visual evidence.
 
 Run the dependency-free matching checks with Node.js:

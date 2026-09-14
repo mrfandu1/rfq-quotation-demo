@@ -1,0 +1,31 @@
+{
+  "verifiedAtUtc": "2026-09-14T15:36:29.462132+00:00",
+  "n8nVersion": "2.38.7",
+  "nodeVersion": "v26.7.0",
+  "executionStatus": "success",
+  "nativeNodesExecuted": [
+    "Run demonstration",
+    "Load synthetic PDF",
+    "Extract PDF text",
+    "Parse and match approved prices",
+    "Create Excel draft"
+  ],
+  "sourceWorkflowSha256": "cfa0f317e126fa6ba07f71d612cbedde07914dca715705a485e675f0879c56b0",
+  "sourcePdfSha256": "97fd22dcfd0ae3378cbfd788babace698194b209712773655f33ad1d557bf0c5",
+  "nativeWorkbookSha256": "1e1c29fd44b505ea90ef4db8f0587cebfd2ba42ae567a99a121b495dffac4b6f",
+  "nativeWorkbookBytes": 10150,
+  "rows": 8,
+  "matched": 2,
+  "unpricedReviewRows": 6,
+  "syntheticPricedSubtotalUsd": 149,
+  "checks": [
+    "Actual native PDF text extraction",
+    "All eight row values match fixture",
+    "Five native nodes completed",
+    "Generated XLSX ZIP integrity",
+    "All eight XLSX rows match execution data",
+    "Six review prices remain blank"
+  ],
+  "runUrl": "https://github.com/mrfandu1/rfq-quotation-demo/actions/runs/34863146567",
+  "limits": "Synthetic supplied layout only; buyer documents and production hosting are untested. All prices are invented; no earnings are represented."
+}

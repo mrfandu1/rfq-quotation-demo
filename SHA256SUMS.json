@@ -1,17 +1,21 @@
 {
-  "README.md": "de3b3c584008fb3bfdccc260723c85f13d1b3120b481def78124ab3f0fad01b5",
-  "rfq-to-quotation.n8n.json": "f8e30a9dc9feff8bc00455d02bd8aea461fb563001a5e00c4e70a73b7aa26984",
+  "README.md": "b2fcfea81758a2f7eb94dafadda86b50bc63403cee407426ca9ab7d91d121e1f",
+  "rfq-to-quotation.n8n.json": "cfa0f317e126fa6ba07f71d612cbedde07914dca715705a485e675f0879c56b0",
   "matching.mjs": "9ef68a3bd864d60d71b51febd836c31841895fe04fd14528b50854748041b610",
   "test-matching.mjs": "64e45192a419f0f9a9bbfc2d9c896766bdbe29f65e2a135093c6c4c0398632de",
   "run-demo.mjs": "9ea1ec4201ccfcd2afe1dee8573703a411da95404a82a9ec79a7fbb2f127e29a",
   "make_fixture.py": "5e634d28a257f167c772852dce8cf919f948785b55557184533db2fc880d0224",
-  "build-workflow.mjs": "824f1ba8643ad35417cf3a4f209946869c815e8c487df03bdd4a0bda2273de8e",
+  "build-workflow.mjs": "ef5a1e40307c2cad883f62330656127f94926f4e1ae80a9cf875967fc43f205a",
   "sample/sample-rfq.pdf": "97fd22dcfd0ae3378cbfd788babace698194b209712773655f33ad1d557bf0c5",
-  "sample/catalogue.json": "6b128dac6ae220074376b808c80dcffe31df42928325808d8f42c41715ead20f",
-  "sample/extracted-text.txt": "eb55cd17d55479f01f157fa78e69b744218709fa9254d4bdcf90c6097c664860",
+  "sample/catalogue.json": "e4c51701f5717ab84af1abf455d150cfcc67773c7c03536cf339ede6fe87d674",
+  "sample/extracted-text.txt": "5f4135f0210f261d2168b32cc35805e24d664f0e88fb70284a66f29f91f9f5ae",
   "sample/result.json": "e78dcfa583b008a71c6e3d42c18bebd0ca22bd330865252a88d121a89978f60e",
   "quotation-demo.xlsx": "86605bf9abf83c5dbf9e2921a437ee18ff4a12eaaecb70186586fd41e9c68632",
   "quotation-preview.png": "aa31a1798ab456ac2b4998ab7b24168760dc40b8af73d50f36d039926d46b011",
   "catalogue-preview.png": "221eb0684e957df62928a7e92419e3f00c62465dddfef300844bd8ff99b7fcfe",
-  "rfq-preview.png": "42c347d10e0194bbbceade527d19a394658cfc66977013bd87d348e0179ce58d"
+  "rfq-preview.png": "42c347d10e0194bbbceade527d19a394658cfc66977013bd87d348e0179ce58d",
+  "quotation-native-n8n.xlsx": "1e1c29fd44b505ea90ef4db8f0587cebfd2ba42ae567a99a121b495dffac4b6f",
+  "native-execution-evidence.json": "dfe4f4ed0f2ea3b62164e92e73f44e07e032ab8ff31354ed969af7e9fc433974",
+  "verify-native.py": "b42b1982b24dc47d810bf560e18ea957045b183f5d0f2c3d5f53825d130774b4",
+  "native-run.sh": "8da3c23595391152c079303d0d9f2ed00e94934e20335c711c317fc183632caf"
 }

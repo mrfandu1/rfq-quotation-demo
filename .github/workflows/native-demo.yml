@@ -36,7 +36,8 @@ jobs:
           node "$N8N_CLI" import:workflow --input=rfq-to-quotation.n8n.json
           node "$N8N_CLI" export:workflow --all --output="$RUNNER_TEMP/imported-workflows.json"
           WORKFLOW_ID=$(node -e 'const fs=require("fs");const workflows=JSON.parse(fs.readFileSync(process.argv[1],"utf8"));if(workflows.length!==1)process.exit(1);console.log(workflows[0].id)' "$RUNNER_TEMP/imported-workflows.json")
-          node "$N8N_CLI" execute --id="$WORKFLOW_ID" --rawOutput > "$RUNNER_TEMP/native-execution.log" 2>&1
+          # n8n emits --rawOutput through its info logger; warn hides the JSON.
+          N8N_LOG_LEVEL=info node "$N8N_CLI" execute --id="$WORKFLOW_ID" --rawOutput > "$RUNNER_TEMP/native-execution.log" 2>&1
           python3 verify-native.py "$RUNNER_TEMP/native-execution.log" --n8n-version "$(node "$N8N_CLI" --version)" --node-version "$(node --version)"
       - uses: actions/upload-artifact@v4
         with:

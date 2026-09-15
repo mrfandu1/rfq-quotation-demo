@@ -1,5 +1,5 @@
 {
-  "verifiedAtUtc": "2026-09-15T14:11:51.661182+00:00",
+  "verifiedAtUtc": "2026-09-15T14:11:51.709444+00:00",
   "n8nVersion": "2.38.7",
   "nodeVersion": "v26.7.0",
   "executionStatus": "success",
@@ -10,23 +10,23 @@
     "Parse and match approved prices",
     "Create Excel draft"
   ],
-  "sourceWorkflowSha256": "61dfaec5553bd1d3d8b9953aca66434fcb45a6706ea120ef03af4162f1c02818",
-  "sourcePdfSha256": "97fd22dcfd0ae3378cbfd788babace698194b209712773655f33ad1d557bf0c5",
-  "nativeWorkbookSha256": "1e1c29fd44b505ea90ef4db8f0587cebfd2ba42ae567a99a121b495dffac4b6f",
-  "nativeWorkbookBytes": 10150,
-  "rows": 8,
-  "matched": 2,
-  "unpricedReviewRows": 6,
-  "currency": "USD",
-  "syntheticPricedSubtotal": 149,
+  "sourceWorkflowSha256": "95e8db2cd33cb97ee88ab9818b2a96e62155bab7db41b719398ceaf3dc429b25",
+  "sourcePdfSha256": "49b937098c264cc63acbae21c0b471d7747c0e95dff1bc393f93c95328c6c20e",
+  "nativeWorkbookSha256": "785dc3d6e1cebe3e4378e8da65e69232b9cb5b86e44696fe9693bc862227c3d6",
+  "nativeWorkbookBytes": 9544,
+  "rows": 4,
+  "matched": 3,
+  "unpricedReviewRows": 1,
+  "currency": "AED",
+  "syntheticPricedSubtotal": 0.3,
   "roundingRule": "Decimal half-up, quantity thousandths times integer minor units",
   "checks": [
     "Actual native PDF text extraction",
-    "All 8 row values match fixture",
+    "All 4 row values match fixture",
     "Five native nodes completed",
     "Generated XLSX ZIP integrity",
-    "All 8 XLSX rows match execution data",
-    "6 review prices remain blank"
+    "All 4 XLSX rows match execution data",
+    "1 review prices remain blank"
   ],
   "runUrl": "https://github.com/mrfandu1/rfq-quotation-demo/actions/runs/34979842698",
   "limits": "Synthetic supplied layout only; buyer documents and production hosting are untested. All prices are invented; no earnings are represented."

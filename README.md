@@ -1,6 +1,6 @@
 # RFQ to quotation demonstration
 
-**15 September update in verification:** exact decimal half-up rounding now passes the reported `0.145 × 1.00 = 0.15` regression. An AED fixture and workflow have been added. A fresh native run is pending; the native artifacts and ZIP below still belong to the earlier revision until replaced.
+**15 September correction:** exact decimal half-up rounding fixes the reported `0.145 × 1.00` case: the result is now `0.15`. Both the original USD workflow and a new AED rounding workflow passed [native n8n verification](https://github.com/mrfandu1/rfq-quotation-demo/actions/runs/34979842698). Start with the [two-minute walkthrough](WALKTHROUGH.md).
 
 An explicitly synthetic electrical-parts RFQ, deterministic matching code and Excel quotation draft. Created with AI assistance for a focused RFQ prototype proposal. This is a new demonstration, not a past client project.
 
@@ -23,9 +23,11 @@ Manual Trigger → Load synthetic PDF → Extract PDF text → Parse and match a
 
 Import the JSON into n8n, run it manually and download the `data` binary output from the final node. The native XLSX output is a plain table. `quotation-demo.xlsx` is a separately formatted presentation example; the workflow does not reproduce that styling.
 
-**The supplied synthetic workflow has been verified end to end in n8n 2.38.7.** The [native execution](https://github.com/mrfandu1/rfq-quotation-demo/actions/runs/34863146567) completed all five nodes, extracted the actual PDF text, and generated an Excel file whose eight rows match the fixture. The six review rows keep their prices and amounts blank. The runtime ran with external networking disabled.
+**Both supplied synthetic workflows have been verified end to end in n8n 2.38.7.** The [native execution](https://github.com/mrfandu1/rfq-quotation-demo/actions/runs/34979842698) completed all five nodes for each workflow with external networking disabled. The original USD output retains eight rows, two matches and six blank review amounts. The AED output contains `0.15`, `0.01`, `0.14` and a blank currency-mismatch amount, totaling AED `0.30` across its three priced rows. The verifier checks actual PDF extraction and every generated XLSX row.
 
 Download the [native Excel output](quotation-native-n8n.xlsx), inspect the [execution evidence and checksums](native-execution-evidence.json), or get the [complete demonstration ZIP](rfq-demonstration.zip). This verifies the supplied layout and synthetic data; buyer documents and production hosting remain untested.
+
+The separate [AED workflow](rfq-to-quotation-aed.n8n.json), [native AED workbook](quotation-native-aed.xlsx) and [AED execution evidence](native-aed-evidence.json) exercise the reported rounding bug and currency rejection.
 
 ## Files
 
@@ -33,7 +35,11 @@ Download the [native Excel output](quotation-native-n8n.xlsx), inspect the [exec
 - `sample/catalogue.json`: invented approved-price data, including deliberate exceptions.
 - `sample/extracted-text.txt`: actual pypdf output.
 - `sample/result.json`: expected matching results and subtotal.
-- `matching.mjs`: parsing and matching source.
+- `matching.mjs`: parsing, conservative matching and integer decimal half-up arithmetic.
+- `WALKTHROUGH.md`: short instructions and the expected AED amounts.
+- `rfq-to-quotation-aed.n8n.json`: self-contained AED regression workflow.
+- `sample/aed-rounding-*`: four-row PDF, text, catalogue and independent Decimal expected results.
+- `quotation-native-aed.xlsx`, `native-aed-evidence.json`: verified AED output and hashes.
 - `test-matching.mjs`: executable regression checks.
 - `run-demo.mjs`: reproduce the JSON matching output.
 - `make_fixture.py`: reproduce the PDF and catalogue (requires Python, reportlab and pypdf).
@@ -56,5 +62,7 @@ node run-demo.mjs
 The parser accepts only the supplied text layout, its pipe-separated table and item-count marker, up to 100 rows. It stops on unsupported layouts/count mismatches. It is not a general-purpose PDF table extractor. No OCR, fuzzy substitutions, inferred prices, taxes, delivery charges, mixed-currency quotations, currency conversion, ERP integration, email sending or dashboard is implemented.
 
 Matching requires the exact normalized product code, unit and description, a unique catalogue entry, an approved numeric price and the selected quotation currency (USD by default, or AED). There is no currency conversion or mixed-currency quotation. Text normalization covers case and whitespace only. Matching is intentionally conservative.
+
+Quantities support up to three decimal places and unit prices up to two. Each line rounds half up to two places before subtotaling. Unsupported numeric ranges are rejected or left unpriced; no binary-floating-point product determines the rounding.
 
 Adapting to a buyer's real PDF layout and catalogue requires reviewing representative samples and agreeing the acceptance data before a paid test. Production hosting, authentication, upload limits and operational support would also need agreement.

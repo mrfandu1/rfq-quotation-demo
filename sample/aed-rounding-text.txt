@@ -1,0 +1,9 @@
+SYNTHETIC AED ROUNDING RFQ
+ITEM COUNT: 4
+BEGIN RFQ ITEMS
+Item | Product code | Description | Quantity | Unit
+01 | R145 | Exact half-cent tie | 0.145 | EA
+02 | R005 | Small half-cent tie | 0.005 | EA
+03 | R144 | Below half-cent tie | 0.144 | EA
+04 | USDONLY | Wrong currency | 1 | EA
+END RFQ ITEMS

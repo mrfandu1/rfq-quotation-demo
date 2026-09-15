@@ -1,0 +1,34 @@
+[
+  {
+    "code": "R145",
+    "description": "Exact half-cent tie",
+    "unit": "EA",
+    "price": "1.00",
+    "currency": "AED",
+    "approved": true
+  },
+  {
+    "code": "R005",
+    "description": "Small half-cent tie",
+    "unit": "EA",
+    "price": "1.00",
+    "currency": "AED",
+    "approved": true
+  },
+  {
+    "code": "R144",
+    "description": "Below half-cent tie",
+    "unit": "EA",
+    "price": "1.00",
+    "currency": "AED",
+    "approved": true
+  },
+  {
+    "code": "USDONLY",
+    "description": "Wrong currency",
+    "unit": "EA",
+    "price": "1.00",
+    "currency": "USD",
+    "approved": true
+  }
+]

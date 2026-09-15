@@ -1,5 +1,7 @@
 # RFQ to quotation demonstration
 
+**15 September update in verification:** exact decimal half-up rounding now passes the reported `0.145 × 1.00 = 0.15` regression. An AED fixture and workflow have been added. A fresh native run is pending; the native artifacts and ZIP below still belong to the earlier revision until replaced.
+
 An explicitly synthetic electrical-parts RFQ, deterministic matching code and Excel quotation draft. Created with AI assistance for a focused RFQ prototype proposal. This is a new demonstration, not a past client project.
 
 ## What is verified
@@ -51,8 +53,8 @@ node run-demo.mjs
 
 ## Deliberate scope limits
 
-The parser accepts only the supplied text layout, its pipe-separated table and item-count marker, up to 100 rows. It stops on unsupported layouts/count mismatches. It is not a general-purpose PDF table extractor. No OCR, fuzzy substitutions, inferred prices, taxes, delivery charges, multiple currencies, ERP integration, email sending or dashboard is implemented.
+The parser accepts only the supplied text layout, its pipe-separated table and item-count marker, up to 100 rows. It stops on unsupported layouts/count mismatches. It is not a general-purpose PDF table extractor. No OCR, fuzzy substitutions, inferred prices, taxes, delivery charges, mixed-currency quotations, currency conversion, ERP integration, email sending or dashboard is implemented.
 
-Matching requires the exact normalized product code, unit and description, a unique catalogue entry, an approved numeric price and USD currency. Text normalization covers case and whitespace only. Matching is intentionally conservative.
+Matching requires the exact normalized product code, unit and description, a unique catalogue entry, an approved numeric price and the selected quotation currency (USD by default, or AED). There is no currency conversion or mixed-currency quotation. Text normalization covers case and whitespace only. Matching is intentionally conservative.
 
 Adapting to a buyer's real PDF layout and catalogue requires reviewing representative samples and agreeing the acceptance data before a paid test. Production hosting, authentication, upload limits and operational support would also need agreement.

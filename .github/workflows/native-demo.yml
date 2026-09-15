@@ -47,12 +47,17 @@ jobs:
           python3 verify-native.py "$RFQ_NATIVE_OUTPUT/native-execution.log" \
             --n8n-version "$(cat "$RFQ_NATIVE_OUTPUT/n8n-version.txt")" \
             --node-version "$(cat "$RFQ_NATIVE_OUTPUT/node-version.txt")"
+          python3 verify-native.py "$RFQ_NATIVE_OUTPUT/native-execution-aed.log" --case aed-rounding \
+            --n8n-version "$(cat "$RFQ_NATIVE_OUTPUT/n8n-version.txt")" \
+            --node-version "$(cat "$RFQ_NATIVE_OUTPUT/node-version.txt")"
       - uses: actions/upload-artifact@v4
         with:
           name: verified-native-demo
           path: |
             quotation-native-n8n.xlsx
             native-execution-evidence.json
+            quotation-native-aed.xlsx
+            native-aed-evidence.json
           if-no-files-found: error
           retention-days: 14
       - name: Show execution error if verification fails

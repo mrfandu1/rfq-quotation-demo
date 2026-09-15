@@ -2,6 +2,7 @@
 import argparse
 import base64
 from datetime import datetime, timezone
+from decimal import Decimal
 import hashlib
 import io
 import json
@@ -15,6 +16,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument('execution_log')
 parser.add_argument('--n8n-version', required=True)
 parser.add_argument('--node-version', required=True)
+parser.add_argument('--case', choices=['usd', 'aed-rounding'], default='usd')
 args = parser.parse_args()
 root = Path(__file__).resolve().parent
 raw = Path(args.execution_log).read_text(encoding='utf-8-sig')
@@ -46,20 +48,23 @@ def output(name):
 
 pdf_text = output(names[2])[0]['json']['text']
 assert 'BEGIN RFQ ITEMS' in pdf_text and 'END RFQ ITEMS' in pdf_text
-assert 'ITEM COUNT: 8' in pdf_text
+expected_path = 'sample/aed-rounding-result.json' if args.case == 'aed-rounding' else 'sample/result.json'
+expected = json.loads((root / expected_path).read_text())
+currency = expected['currency']
+count = len(expected['rows'])
+assert f'ITEM COUNT: {count}' in pdf_text
 rows = [item['json'] for item in output(names[3])]
-expected = json.loads((root / 'sample/result.json').read_text())
-assert len(rows) == 8
+assert len(rows) == count
 fields = {'Line': 'line', 'Code': 'code', 'Description': 'description',
-          'Quantity': 'quantity', 'Unit': 'unit', 'Unit price USD': 'unitPrice',
-          'Amount USD': 'amount', 'Status': 'status', 'Review reason': 'issue'}
+          'Quantity': 'quantity', 'Unit': 'unit', f'Unit price {currency}': 'unitPrice',
+          f'Amount {currency}': 'amount', 'Status': 'status', 'Review reason': 'issue'}
 for row, want in zip(rows, expected['rows'], strict=True):
     for column, key in fields.items():
         assert row[column] == want[key], (row['Line'], column, row[column], want[key])
-assert sum(row['Amount USD'] or 0 for row in rows) == 149
+assert sum(Decimal(str(row[f'Amount {currency}'] or 0)) for row in rows) == Decimal(str(expected['pricedSubtotal']))
 binary = output(names[4])[0]['binary']['data']
 assert not binary.get('id'), 'Expected inline binary storage for this verification'
-assert binary['fileName'] == 'quotation-native-n8n.xlsx'
+assert binary['fileName'] == ('quotation-native-aed.xlsx' if args.case == 'aed-rounding' else 'quotation-native-n8n.xlsx')
 workbook = base64.b64decode(binary['data'], validate=True)
 ns = {'s': 'http://schemas.openxmlformats.org/spreadsheetml/2006/main'}
 with ZipFile(io.BytesIO(workbook)) as archive:
@@ -85,7 +90,7 @@ with ZipFile(io.BytesIO(workbook)) as archive:
                 value = float(value)
             record[column] = value
         records.append(record)
-    assert len(records) == 9, 'XLSX must have one header and eight data rows'
+    assert len(records) == count + 1, 'XLSX row count mismatch'
     headers = records[0]
     for record, expected_row in zip(records[1:], rows, strict=True):
         actual = {label: record.get(column) for column, label in headers.items()}
@@ -106,16 +111,18 @@ evidence = {
     'verifiedAtUtc': datetime.now(timezone.utc).isoformat(),
     'n8nVersion': args.n8n_version, 'nodeVersion': args.node_version,
     'executionStatus': execution['status'], 'nativeNodesExecuted': names,
-    'sourceWorkflowSha256': digest(root / 'rfq-to-quotation.n8n.json'),
-    'sourcePdfSha256': digest(root / 'sample/sample-rfq.pdf'),
+    'sourceWorkflowSha256': digest(root / ('rfq-to-quotation-aed.n8n.json' if args.case == 'aed-rounding' else 'rfq-to-quotation.n8n.json')),
+    'sourcePdfSha256': digest(root / 'sample' / expected['source']),
     'nativeWorkbookSha256': digest(root / binary['fileName']),
-    'nativeWorkbookBytes': len(workbook), 'rows': 8, 'matched': 2,
-    'unpricedReviewRows': 6, 'syntheticPricedSubtotalUsd': 149,
-    'checks': ['Actual native PDF text extraction', 'All eight row values match fixture',
+    'nativeWorkbookBytes': len(workbook), 'rows': count, 'matched': expected['matched'],
+    'unpricedReviewRows': expected['needsReview'], 'currency': currency,
+    'syntheticPricedSubtotal': expected['pricedSubtotal'],
+    'roundingRule': 'Decimal half-up, quantity thousandths times integer minor units',
+    'checks': ['Actual native PDF text extraction', f'All {count} row values match fixture',
                'Five native nodes completed', 'Generated XLSX ZIP integrity',
-               'All eight XLSX rows match execution data', 'Six review prices remain blank'],
+               f'All {count} XLSX rows match execution data', f'{expected["needsReview"]} review prices remain blank'],
     'runUrl': run_url,
     'limits': 'Synthetic supplied layout only; buyer documents and production hosting are untested. All prices are invented; no earnings are represented.'
 }
-(root / 'native-execution-evidence.json').write_text(json.dumps(evidence, indent=2) + '\n', encoding='utf-8')
+(root / ('native-aed-evidence.json' if args.case == 'aed-rounding' else 'native-execution-evidence.json')).write_text(json.dumps(evidence, indent=2) + '\n', encoding='utf-8')
 print(json.dumps(evidence, indent=2))

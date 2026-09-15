@@ -1,0 +1,63 @@
+{
+  "source": "aed-rounding-rfq.pdf",
+  "currency": "AED",
+  "rows": [
+    {
+      "line": 1,
+      "code": "R145",
+      "description": "Exact half-cent tie",
+      "quantity": 0.145,
+      "unit": "EA",
+      "status": "MATCHED",
+      "issue": "",
+      "unitPrice": 1,
+      "amount": 0.15,
+      "catalogueDescription": "Exact half-cent tie",
+      "catalogueUnit": "EA"
+    },
+    {
+      "line": 2,
+      "code": "R005",
+      "description": "Small half-cent tie",
+      "quantity": 0.005,
+      "unit": "EA",
+      "status": "MATCHED",
+      "issue": "",
+      "unitPrice": 1,
+      "amount": 0.01,
+      "catalogueDescription": "Small half-cent tie",
+      "catalogueUnit": "EA"
+    },
+    {
+      "line": 3,
+      "code": "R144",
+      "description": "Below half-cent tie",
+      "quantity": 0.144,
+      "unit": "EA",
+      "status": "MATCHED",
+      "issue": "",
+      "unitPrice": 1,
+      "amount": 0.14,
+      "catalogueDescription": "Below half-cent tie",
+      "catalogueUnit": "EA"
+    },
+    {
+      "line": 4,
+      "code": "USDONLY",
+      "description": "Wrong currency",
+      "quantity": 1.0,
+      "unit": "EA",
+      "status": "REVIEW",
+      "issue": "Currency mismatch",
+      "unitPrice": null,
+      "amount": null,
+      "catalogueDescription": "Wrong currency",
+      "catalogueUnit": "EA"
+    }
+  ],
+  "matched": 3,
+  "needsReview": 1,
+  "pricedSubtotal": 0.3,
+  "quoteStatus": "DRAFT - human review required",
+  "oracle": "Python Decimal ROUND_HALF_UP"
+}
